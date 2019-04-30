@@ -2,11 +2,13 @@ package com.fwahyudianto.learn.president;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fwahyudianto.learn.president.controllers.PresidentGridAdapter;
 import com.fwahyudianto.learn.president.controllers.PresidentListAdapter;
 import com.fwahyudianto.learn.president.models.President;
 import com.fwahyudianto.learn.president.models.PresidentData;
@@ -36,6 +38,13 @@ public class MainActivity extends AppCompatActivity {
         oRecyclerView.setAdapter(oPresidentListAdapter);
     }
 
+    private void RecyclerGrid(){
+        oRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        PresidentGridAdapter oPresidentGridAdapter = new PresidentGridAdapter(this);
+        oPresidentGridAdapter.setPresident(alData);
+        oRecyclerView.setAdapter(oPresidentGridAdapter);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu p_oMenu) {
         getMenuInflater().inflate(R.menu.menu_main, p_oMenu);
@@ -47,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem p_oMenuItem) {
         switch (p_oMenuItem.getItemId()) {
             case R.id.action_list:
+                RecyclerList();
                 break;
             case R.id.action_grid:
+                RecyclerGrid();
                 break;
             case  R.id.action_cardview:
                 break;
