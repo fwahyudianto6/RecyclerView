@@ -1,3 +1,6 @@
 <resources>
     <string name="AppName">President</string>
+    <string name="strList">List</string>
+    <string name="strGrid">Grid</string>
+    <string name="strCard">Card View</string>
 </resources>
