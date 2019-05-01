@@ -17,9 +17,11 @@ import com.fwahyudianto.learn.president.models.PresidentData;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private String m_strTitle = "";
     private RecyclerView oRecyclerView;
     private ArrayList<President> alData = new ArrayList<>();
 
+    //  Event
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +31,39 @@ public class MainActivity extends AppCompatActivity {
         oRecyclerView.setHasFixedSize(true);
 
         alData.addAll(PresidentData.List());
+        setActionBarTitle("President List with List View");
         RecyclerList();
     }
 
-    private void RecyclerList(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu p_oMenu) {
+        getMenuInflater().inflate(R.menu.menu_main, p_oMenu);
+
+        return super.onCreateOptionsMenu(p_oMenu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem p_oMenuItem) {
+        switch (p_oMenuItem.getItemId()) {
+            case R.id.action_list:
+                setActionBarTitle("President List with List View");
+                RecyclerList();
+                break;
+            case R.id.action_grid:
+                setActionBarTitle("President List with Grid View");
+                RecyclerGrid();
+                break;
+            case R.id.action_cardview:
+                setActionBarTitle("President List with Card View");
+                RecyclerCard();
+                break;
+        }
+
+        return super.onOptionsItemSelected(p_oMenuItem);
+    }
+
+    //  Method
+    private void RecyclerList() {
         oRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         PresidentListAdapter oPresidentListAdapter = new PresidentListAdapter(this);
@@ -41,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         oRecyclerView.setAdapter(oPresidentListAdapter);
     }
 
-    private void RecyclerGrid(){
+    private void RecyclerGrid() {
         oRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         PresidentGridAdapter oPresidentGridAdapter = new PresidentGridAdapter(this);
@@ -59,27 +90,7 @@ public class MainActivity extends AppCompatActivity {
         oRecyclerView.setAdapter(oPresidentCardAdapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu p_oMenu) {
-        getMenuInflater().inflate(R.menu.menu_main, p_oMenu);
-
-        return  super.onCreateOptionsMenu(p_oMenu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem p_oMenuItem) {
-        switch (p_oMenuItem.getItemId()) {
-            case R.id.action_list:
-                RecyclerList();
-                break;
-            case R.id.action_grid:
-                RecyclerGrid();
-                break;
-            case  R.id.action_cardview:
-                RecyclerCard();
-                break;
-        }
-
-        return super.onOptionsItemSelected(p_oMenuItem);
+    private void setActionBarTitle(String p_strTitle) {
+        getSupportActionBar().setTitle(p_strTitle);
     }
 }
