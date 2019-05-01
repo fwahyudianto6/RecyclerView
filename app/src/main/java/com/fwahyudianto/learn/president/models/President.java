@@ -1,5 +1,7 @@
 package com.fwahyudianto.learn.president.models;
 
+import java.io.Serializable;
+
 /**
  *  This software, all associated documentation, and all copies are CONFIDENTIAL INFORMATION of Kalpawreska Teknologi Indonesia
  *  http://www.fwahyudianto.id
@@ -7,7 +9,7 @@ package com.fwahyudianto.learn.president.models;
  *  Email 	: fwahyudi06@gmail.com
  */
 
-public class President {
+public class President implements Serializable {
     protected String m_strPresidentName = "";
     protected String m_strPhoto = "";
     protected String m_strDescriptions = "";
