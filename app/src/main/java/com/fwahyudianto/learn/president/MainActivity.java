@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fwahyudianto.learn.president.controllers.PresidentCardAdapter;
 import com.fwahyudianto.learn.president.controllers.PresidentGridAdapter;
 import com.fwahyudianto.learn.president.controllers.PresidentListAdapter;
 import com.fwahyudianto.learn.president.models.President;
@@ -33,16 +34,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void RecyclerList(){
         oRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         PresidentListAdapter oPresidentListAdapter = new PresidentListAdapter(this);
         oPresidentListAdapter.setPresident(alData);
+
         oRecyclerView.setAdapter(oPresidentListAdapter);
     }
 
     private void RecyclerGrid(){
         oRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
         PresidentGridAdapter oPresidentGridAdapter = new PresidentGridAdapter(this);
         oPresidentGridAdapter.setPresident(alData);
+
         oRecyclerView.setAdapter(oPresidentGridAdapter);
+    }
+
+    private void RecyclerCard() {
+        oRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        PresidentCardAdapter oPresidentCardAdapter = new PresidentCardAdapter(this);
+        oPresidentCardAdapter.setPresident(alData);
+
+        oRecyclerView.setAdapter(oPresidentCardAdapter);
     }
 
     @Override
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 RecyclerGrid();
                 break;
             case  R.id.action_cardview:
+                RecyclerCard();
                 break;
         }
 

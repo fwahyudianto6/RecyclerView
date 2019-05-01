@@ -56,6 +56,7 @@ public class PresidentListAdapter extends RecyclerView.Adapter<PresidentListAdap
     public void onBindViewHolder(@NonNull CategoryViewHolder oCategoryViewHolder, int iPosition) {
         oCategoryViewHolder.tvName.setText(getPresident().get(iPosition).getPresidentName());
         oCategoryViewHolder.tvDescriptions.setText(getPresident().get(iPosition).getDescriptions());
+
         Glide.with(oContext)
                 .load(getPresident().get(iPosition).getPhoto())
                 .apply(new RequestOptions().override(55, 55))
