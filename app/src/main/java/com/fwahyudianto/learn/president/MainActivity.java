@@ -7,9 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.fwahyudianto.learn.president.controllers.PresidentCardAdapter;
 import com.fwahyudianto.learn.president.controllers.PresidentGridAdapter;
+import com.fwahyudianto.learn.president.controllers.PresidentItemClickSupport;
 import com.fwahyudianto.learn.president.controllers.PresidentListAdapter;
 import com.fwahyudianto.learn.president.models.President;
 import com.fwahyudianto.learn.president.models.PresidentData;
@@ -51,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle oBundle) {
+        super.onSaveInstanceState(oBundle);
+        oBundle.putString(m_strStateTitle, getSupportActionBar().getTitle().toString());
+        oBundle.putSerializable("president", alData);
+        oBundle.putInt(m_strStateMode, iMode);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu p_oMenu) {
         getMenuInflater().inflate(R.menu.menu_main, p_oMenu);
 
@@ -64,14 +75,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(p_oMenuItem);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle oBundle) {
-        super.onSaveInstanceState(oBundle);
-        oBundle.putString(m_strStateTitle, getSupportActionBar().getTitle().toString());
-        oBundle.putSerializable("president", alData);
-        oBundle.putInt(m_strStateMode, iMode);
-    }
-
     //  Method
     private void RecyclerList() {
         oRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -80,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
         oPresidentListAdapter.setPresident(alData);
 
         oRecyclerView.setAdapter(oPresidentListAdapter);
+
+        //  Added Toast on Item
+        PresidentItemClickSupport.addTo(oRecyclerView).setOnItemClickListener(new PresidentItemClickSupport.OnItemClickListener() {
+
+            @Override
+            public void onItemClicked(RecyclerView p_oRecyclerView, int p_iPosition, View p_oView) {
+                selectedPresident(alData.get(p_iPosition));
+            }
+        });
     }
 
     private void RecyclerGrid() {
@@ -89,6 +101,14 @@ public class MainActivity extends AppCompatActivity {
         oPresidentGridAdapter.setPresident(alData);
 
         oRecyclerView.setAdapter(oPresidentGridAdapter);
+
+        //  Added Toast on Item
+        PresidentItemClickSupport.addTo(oRecyclerView).setOnItemClickListener(new PresidentItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView p_oRecyclerView, int p_iPosition, View p_oView) {
+                selectedPresident(alData.get(p_iPosition));
+            }
+        });
     }
 
     private void RecyclerCard() {
@@ -98,6 +118,14 @@ public class MainActivity extends AppCompatActivity {
         oPresidentCardAdapter.setPresident(alData);
 
         oRecyclerView.setAdapter(oPresidentCardAdapter);
+
+        //  Added Toast on Item
+        PresidentItemClickSupport.addTo(oRecyclerView).setOnItemClickListener(new PresidentItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView p_oRecyclerView, int p_iPosition, View p_oView) {
+                selectedPresident(alData.get(p_iPosition));
+            }
+        });
     }
 
     private void setActionBarTitle(String p_strTitle) {
@@ -123,5 +151,9 @@ public class MainActivity extends AppCompatActivity {
 
         iMode = p_iMode;
         setActionBarTitle(strTitle);
+    }
+
+    private void selectedPresident(President oPresident){
+        Toast.makeText(this, "You choose the President : " + oPresident.getPresidentName(), Toast.LENGTH_SHORT).show();
     }
 }

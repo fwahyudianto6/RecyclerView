@@ -13,16 +13,19 @@ public class PresidentOnItemClickListener implements View.OnClickListener {
     private int m_iPosition;
     private OnItemClickCallback m_oOnItemClickCallback;
 
+    //  Constructor
     PresidentOnItemClickListener(int iPosition, OnItemClickCallback oOnItemClickCallback) {
         this.m_iPosition = iPosition;
         this.m_oOnItemClickCallback = oOnItemClickCallback;
     }
 
+    //  Event
     @Override
     public void onClick(View oView) {
         m_oOnItemClickCallback.onItemClicked(oView, m_iPosition);
     }
 
+    //  Interface
     public interface OnItemClickCallback {
         void onItemClicked(View oView, int iPosition);
     }
