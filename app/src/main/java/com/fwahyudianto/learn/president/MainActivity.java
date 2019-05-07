@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     final String m_strStateTitle = "state_title";
+    final String m_strStateList = "state_list";
     final String m_strStateMode = "state_mode";
     int iMode;
     private RecyclerView oRecyclerView;
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
             RecyclerList();
             iMode = R.id.action_list;
         } else {
-            String stateTitle = savedInstanceState.getString(m_strStateTitle);
-            ArrayList<President> oPresident = (ArrayList<President>) savedInstanceState.getSerializable("president");
+            String strTitle = savedInstanceState.getString(m_strStateTitle);
+            ArrayList<President> oPresident = savedInstanceState.getParcelableArrayList(m_strStateList);
             int iStateMode = savedInstanceState.getInt(m_strStateMode);
 
-            setActionBarTitle(stateTitle);
+            setActionBarTitle(strTitle);
             alData.addAll(oPresident);
             setMode(iStateMode);
         }
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle oBundle) {
         super.onSaveInstanceState(oBundle);
         oBundle.putString(m_strStateTitle, getSupportActionBar().getTitle().toString());
-        oBundle.putSerializable("president", alData);
+        oBundle.putParcelableArrayList(m_strStateList, alData);
         oBundle.putInt(m_strStateMode, iMode);
     }
 
